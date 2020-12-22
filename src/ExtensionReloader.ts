@@ -1,5 +1,5 @@
 import { merge } from "lodash";
-import { Compiler, Entry, Output, version } from "webpack";
+import { Compiler, Entry, version } from "webpack";
 import { changesTriggerer } from "./hot-reload";
 import { onlyOnDevelopmentMsg } from "./messages/warnings";
 import { middlewareInjector } from "./middleware";
@@ -83,7 +83,7 @@ export default class ExtensionReloaderImpl extends AbstractPluginReloader
     const parsedEntries: IEntriesOption = manifest
       ? extractEntries(
           compiler.options.entry as Entry,
-          compiler.options.output as Output,
+          compiler.options.output as any,
           manifest,
         )
       : entries;
@@ -91,10 +91,10 @@ export default class ExtensionReloaderImpl extends AbstractPluginReloader
     this._eventAPI = new CompilerEventsFacade(compiler);
     this._injector = middlewareInjector(parsedEntries, { port, reloadPage });
     this._triggerer = changesTriggerer(port, reloadPage);
-    this._eventAPI.afterOptimizeChunkAssets((comp, chunks) => {
+    this._eventAPI.afterOptimizeChunkAssets((comp, assets) => {
       comp.assets = {
         ...comp.assets,
-        ...this._injector(comp.assets, chunks),
+        ...this._injector(comp.assets, comp.chunks),
       };
     });
 
