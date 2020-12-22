@@ -22,7 +22,7 @@ const middlewareInjector: MiddlewareInjector = (
       if (matchBgOrContentOrPage(name)) {
         files.forEach(entryPoint => {
           if (/\.js$/.test(entryPoint)) {
-            const finalSrc = sourceFactory(source, assets[entryPoint]);
+            const finalSrc = sourceFactory(source, assets[entryPoint].original());
             prev[entryPoint] = finalSrc;
           }
         });

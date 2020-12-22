@@ -1,36 +1,26 @@
-import { Compiler } from "webpack";
+import { Compiler, Compilation } from "webpack";
 
 export default class CompilerEventsFacade {
   public static extensionName = "webpack-extension-reloader";
   private _compiler: Compiler;
-  private _legacyTapable: boolean;
 
   constructor(compiler) {
     this._compiler = compiler;
-    this._legacyTapable = !compiler.hooks;
   }
 
   public afterOptimizeChunkAssets(call) {
-    return this._legacyTapable
-      ? this._compiler.plugin("compilation", comp =>
-          comp.plugin("after-optimize-chunk-assets", chunks =>
-            call(comp, chunks),
-          ),
-        )
-      : this._compiler.hooks.compilation.tap(
+    return this._compiler.hooks.compilation.tap(
           CompilerEventsFacade.extensionName,
           comp =>
-            comp.hooks.afterOptimizeChunkAssets.tap(
-              CompilerEventsFacade.extensionName,
-              chunks => call(comp, chunks),
+            comp.hooks.processAssets.tap(
+              {name: CompilerEventsFacade.extensionName, stage: Compilation.PROCESS_ASSETS_STAGE_DERIVED},
+              assets => call(comp, assets),
             ),
         );
   }
 
   public afterEmit(call) {
-    return this._legacyTapable
-      ? this._compiler.plugin("after-emit", call)
-      : this._compiler.hooks.afterEmit.tap(
+    return this._compiler.hooks.afterEmit.tap(
           CompilerEventsFacade.extensionName,
           call,
         );
