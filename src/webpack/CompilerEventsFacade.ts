@@ -10,19 +10,22 @@ export default class CompilerEventsFacade {
 
   public afterOptimizeChunkAssets(call) {
     return this._compiler.hooks.compilation.tap(
-          CompilerEventsFacade.extensionName,
-          comp =>
-            comp.hooks.processAssets.tap(
-              {name: CompilerEventsFacade.extensionName, stage: Compilation.PROCESS_ASSETS_STAGE_DERIVED},
-              assets => call(comp, assets),
-            ),
-        );
+      CompilerEventsFacade.extensionName,
+      comp =>
+        comp.hooks.processAssets.tap(
+          {
+            name: CompilerEventsFacade.extensionName,
+            stage: Compilation.PROCESS_ASSETS_STAGE_DERIVED,
+          },
+          assets => call(comp, assets),
+        ),
+    );
   }
 
   public afterEmit(call) {
     return this._compiler.hooks.afterEmit.tap(
-          CompilerEventsFacade.extensionName,
-          call,
-        );
+      CompilerEventsFacade.extensionName,
+      call,
+    );
   }
 }

@@ -1,9 +1,10 @@
 import { debounce, runInContext } from "lodash";
 import { info, warn } from "./logger";
 
-export const debounceSignal = (deboucingFrame: number, context?: Record<string, any>) => (
-  func: (...args: any[]) => any,
-) => {
+export const debounceSignal = (
+  deboucingFrame: number,
+  context?: Record<string, any>,
+) => (func: (...args: any[]) => any) => {
   if (context) {
     runInContext(context);
   }

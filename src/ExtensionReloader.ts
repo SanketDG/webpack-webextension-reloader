@@ -14,7 +14,8 @@ import {
   IPluginOptions,
 } from "../typings/webpack-extension-reloader";
 
-export default class ExtensionReloaderImpl extends AbstractPluginReloader
+export default class ExtensionReloaderImpl
+  extends AbstractPluginReloader
   implements IExtensionReloaderInstance {
   private _opts?: IPluginOptions;
 
@@ -105,9 +106,7 @@ export default class ExtensionReloaderImpl extends AbstractPluginReloader
       );
 
       if (contentOrBgChanged || onlyPageChanged) {
-        this._triggerer(onlyPageChanged)
-          .then(done)
-          .catch(done);
+        this._triggerer(onlyPageChanged).then(done).catch(done);
       }
     });
   }

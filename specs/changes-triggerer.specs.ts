@@ -7,7 +7,7 @@ import HotReloaderServer from "../src/hot-reload/HotReloaderServer";
 describe("changesTriggerer", () => {
   let listenSpy;
   beforeEach(() => {
-    stub(ws, "Server").callsFake(function() {
+    stub(ws, "Server").callsFake(function () {
       this.on = () => null;
       this.send = () => null;
     });
