@@ -16,7 +16,7 @@ Complete API:
 |        name        |    default        |                               description                         |
 |--------------------|-------------------|-------------------------------------------------------------------|
 | --help             |                   | Show this help
-| --config           | ${DEFAULT_CONFIG} \| The webpack configuration file path                               |
+| --config           | ${DEFAULT_CONFIG} | The webpack configuration file path                               |
 | --port             | ${DEFAULT_PORT}   | The port to run the server                                        |
 | --content-script   | ${DEFAULT_CONTENT_SCRIPT_ENTRY}    | The **entry/entries** name(s) for the content script(s)           |
 | --background       | ${DEFAULT_BACKGROUND_ENTRY}        | The **entry** name for the background script                      |

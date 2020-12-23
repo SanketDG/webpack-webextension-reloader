@@ -14,7 +14,7 @@ export default class Message {
     this.message = message;
   }
 
-  public get(additionalData: object = {}) {
+  public get(additionalData: Record<string, any> = {}) {
     const code = `WER-${this.getPrefix()}${this.referenceNumber}`;
     const refLink = bold(white(`${REF_URL}#${code}`));
     return `[${code}] ${template(

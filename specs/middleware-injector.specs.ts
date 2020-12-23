@@ -213,7 +213,7 @@ describe("middleware-injector", () => {
     assetsBuilder = middlewareInjector(options, templateOpts);
     const newAssets = assetsBuilder(assets, singleContentChunks, sourceFactory);
 
-    assert.notOk(newAssets.hasOwnProperty(fakeCssPath));
-    assert.notOk(newAssets.hasOwnProperty(fakeImgPath));
+    assert.notOk(fakeCssPath in newAssets);
+    assert.notOk(fakeImgPath in newAssets);
   });
 });

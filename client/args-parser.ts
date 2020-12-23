@@ -10,7 +10,7 @@ import { CONFIG, HELP, MANIFEST, NO_PAGE_RELOAD, PORT } from "./args.constant";
 import { SIG_EXIT } from "./events.constants";
 import manual from "./manual";
 
-export default (args: object) => {
+export default (args: Record<string, any>) => {
   if (args[HELP]) {
     log(manual());
     throw { type: SIG_EXIT, payload: 0 };
