@@ -19,10 +19,13 @@ const middlewareInjector: MiddlewareInjector = (
 
   return (assets, chunks) =>
     chunks.reduce((prev, { name, files }) => {
+      console.log(name);
+      console.log(files);
+      console.log(assets);
       if (matchBgOrContentOrPage(name)) {
         files.forEach(entryPoint => {
           if (/\.js$/.test(entryPoint)) {
-            const finalSrc = sourceFactory(source, assets[entryPoint].original());
+            const finalSrc = sourceFactory(source, assets[entryPoint]);
             prev[entryPoint] = finalSrc;
           }
         });
