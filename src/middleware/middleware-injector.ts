@@ -18,7 +18,7 @@ const middlewareInjector: MiddlewareInjector = (
     (extensionPage && extensionPage.includes(name));
 
   return (assets, chunks) =>
-    chunks.reduce((prev, { name, files }) => {
+    [...chunks].reduce((prev, { name, files }) => {
       console.log(name);
       console.log(files);
       console.log(assets);

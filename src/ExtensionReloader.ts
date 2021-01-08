@@ -39,7 +39,7 @@ export default class ExtensionReloaderImpl
     chunks: IWebpackChunk[],
     { background, contentScript, extensionPage }: IEntriesOption,
   ) {
-    const changedChunks = chunks.filter(({ name, hash }) => {
+    const changedChunks = [...chunks].filter(({ name, hash }) => {
       const oldVersion = this._chunkVersions[name];
       this._chunkVersions[name] = hash;
       return hash !== oldVersion;
