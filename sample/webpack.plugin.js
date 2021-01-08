@@ -10,13 +10,13 @@ module.exports = {
   entry: {
     "content-script": "./sample/plugin-src/my-content-script.js",
     background: "./sample/plugin-src/my-background.js",
-    popup: "./sample/plugin-src/popup.js"
+    popup: "./sample/plugin-src/popup.js",
   },
   output: {
     publicPath: ".",
     path: resolve(__dirname, "dist/"),
     filename: "[name].bundle.js",
-    libraryTarget: "umd"
+    libraryTarget: "umd",
   },
   plugins: [
     /***********************************************************************/
@@ -26,8 +26,8 @@ module.exports = {
       entries: {
         contentScript: "content-script",
         background: "background",
-        extensionPage: "popup"
-      }
+        extensionPage: "popup",
+      },
       // Also possible to use
       // manifest: resolve(__dirname, "manifest.json")
     }),
@@ -43,11 +43,11 @@ module.exports = {
           process.env.NODE_ENV === "development"
             ? "./sample/manifest.dev.json"
             : "./sample/manifest.prod.json",
-        to: "manifest.json"
+        to: "manifest.json",
       },
       { from: "./sample/plugin-src/popup.html" },
-      { from: "./sample/icons" }
-    ])
+      { from: "./sample/icons" },
+    ]),
   ],
   module: {
     rules: [
@@ -57,23 +57,23 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: [require("@babel/preset-env")]
-          }
-        }
+            presets: [require("@babel/preset-env")],
+          },
+        },
       },
       {
         test: /\.css$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader
+            loader: MiniCssExtractPlugin.loader,
           },
-          "css-loader"
-        ]
+          "css-loader",
+        ],
       },
       {
         test: /\.txt$/,
-        use: "raw-loader"
-      }
-    ]
-  }
+        use: "raw-loader",
+      },
+    ],
+  },
 };
